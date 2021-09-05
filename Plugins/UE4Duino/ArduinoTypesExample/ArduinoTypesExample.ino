@@ -15,6 +15,8 @@ void setup()
   ClearDisplay();
   Serial.begin(9600);
   Serial.setTimeout(5);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop()
@@ -73,15 +75,27 @@ void PrintCommand(String PrintMe)
 
 void VerifyCommand(String InputCommand)
 {
-  if (InputCommand == String("Left"))
+  if (InputCommand == String("LightOn"))
   {
     PrintCommand(InputCommand);
+    LightOn();
     return;
   }
-  if (InputCommand == String("Right")) 
+  if (InputCommand == String("LightOff"))
   {
     PrintCommand(InputCommand);
+    LightOff();
     return;
   }
   InvalidCommand();
+}
+
+void LightOn()
+{
+  digitalWrite(LED_BUILTIN, HIGH);
+}
+
+void LightOff()
+{
+  digitalWrite(LED_BUILTIN, LOW);
 }
