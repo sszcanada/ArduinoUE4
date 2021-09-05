@@ -1,0 +1,36 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "3.3",
+	"FriendlyName": "SSZCode",
+	"Description": "This is a plugin containing custom code from the UniversalOS project by SSZ Canada",
+	"Category": "SSZ Canada",
+	"CreatedBy": "SSZ Canada Inc",
+	"CreatedByURL": "https://ssz.ca",
+	"DocsURL": "https://ssz.ca/site/product/sszcode-community-edition",
+	"MarketplaceURL": "com.epicgames.launcher: //ue/marketplace/product/8567b25b067e43408e4d9a867ad7dcfe",
+	"SupportURL": "https://ssz.ca/chat",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SSZCode",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Android"
+			]
+		},
+		{
+			"Name": "SSZCode",
+			"Type": "Editor",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		}
+	]
+}
