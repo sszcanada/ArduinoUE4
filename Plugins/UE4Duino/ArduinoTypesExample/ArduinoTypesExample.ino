@@ -41,8 +41,11 @@ void loop()
 void ClearDisplay()
 {
   lcd.clear();
-  Display = "Waiting 4 Unreal";
+  Display = " SSZ UE4 Bridge";
   lcd.setCursor(0, 0);
+  lcd.print(Display);
+  Display = "Waiting 4 Unreal";
+  lcd.setCursor(0, 1);
   lcd.print(Display);
 }
 
@@ -57,26 +60,27 @@ void InvalidCommand()
   lcd.print(Display);
 }
 
+void PrintCommand(String PrintMe)
+{
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(String("Command Recieved"));
+  Display = PrintMe;
+  lcd.setCursor(0, 1);
+  lcd.print(Display);
+
+}
+
 void VerifyCommand(String InputCommand)
 {
   if (InputCommand == String("Left"))
   {
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print(Command);
-    Display = "Left";
-    lcd.setCursor(0, 1);
-    lcd.print(Display);
+    PrintCommand(InputCommand);
     return;
   }
   if (InputCommand == String("Right")) 
   {
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print(Command);
-    Display = "Right";
-    lcd.setCursor(0, 1);
-    lcd.print(Display);
+    PrintCommand(InputCommand);
     return;
   }
   InvalidCommand();
