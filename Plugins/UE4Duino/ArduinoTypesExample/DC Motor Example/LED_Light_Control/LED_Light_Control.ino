@@ -24,7 +24,7 @@ void loop()
   // Check Serial
   if (!Serial.available()) return;
   str = Serial.readString();
-
+  
   // Recieved Command
   if (str.startsWith("SSZ"))
   {
@@ -98,4 +98,4 @@ void LightOn()
 void LightOff()
 {
   digitalWrite(LED_BUILTIN, LOW);
-} 
+}

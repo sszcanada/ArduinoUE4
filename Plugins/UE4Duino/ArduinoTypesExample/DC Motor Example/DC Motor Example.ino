@@ -6,6 +6,8 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 String Display = "";
 String Command = "";
 String str = "";
+const int motor1A = 10;
+const int motor2A = 9;
 
 void setup()
 {
@@ -15,8 +17,8 @@ void setup()
   ClearDisplay();
   Serial.begin(9600);
   Serial.setTimeout(5);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor2A, OUTPUT);
 }
 
 void loop()
@@ -28,25 +30,19 @@ void loop()
   // Recieved Command
   if (str.startsWith("SSZ"))
   {
-    lcd.clear();
-    Display = "Command Recieved";
-    lcd.setCursor(0, 0);
-    lcd.print(Display);
     str.remove(0, 4);
     Command = str;
     VerifyCommand(Command);
-    delay(1000);
-    ClearDisplay();
   }
 }
 
 void ClearDisplay()
 {
   lcd.clear();
-  Display = " SSZ UE4 Bridge";
+  Display = " SSZ UE4 BRIDGE";
   lcd.setCursor(0, 0);
   lcd.print(Display);
-  Display = "Waiting 4 Unreal";
+  Display = " COMMAND  READY";
   lcd.setCursor(0, 1);
   lcd.print(Display);
 }
@@ -62,40 +58,54 @@ void InvalidCommand()
   lcd.print(Display);
 }
 
-void PrintCommand(String PrintMe)
+void LastCommand(String LastCom)
 {
   lcd.clear();
+  Display = "  LAST COMMAND";
   lcd.setCursor(0, 0);
-  lcd.print(String("Command Recieved"));
-  Display = PrintMe;
+  lcd.print(Display);
+  Display = LastCom;
   lcd.setCursor(0, 1);
   lcd.print(Display);
-
 }
 
 void VerifyCommand(String InputCommand)
 {
-  if (InputCommand == String("LightOn"))
+  if (InputCommand == String("Left"))
   {
-    PrintCommand(InputCommand);
-    LightOn();
+    LastCommand(InputCommand);
+    Left();
     return;
   }
-  if (InputCommand == String("LightOff"))
+  if (InputCommand == String("Right"))
   {
-    PrintCommand(InputCommand);
-    LightOff();
+    LastCommand(InputCommand);
+    Right();
+    return;
+  }
+  if (InputCommand == String("StopMotor"))
+  {
+    LastCommand(InputCommand);
+    StopMotor();
     return;
   }
   InvalidCommand();
 }
 
-void LightOn()
+void Left()//
 {
-  digitalWrite(LED_BUILTIN, HIGH);
+  analogWrite(motor1A, 0);
+  analogWrite(motor2A, 255);
 }
 
-void LightOff()
+void Right()//
 {
-  digitalWrite(LED_BUILTIN, LOW);
-} 
+  analogWrite(motor1A, 255);
+  analogWrite(motor2A, 0);
+}
+
+void StopMotor()
+{
+  analogWrite(motor1A, 0);
+  analogWrite(motor2A, 0);
+}
